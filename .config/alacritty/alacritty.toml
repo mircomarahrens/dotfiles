@@ -6,7 +6,7 @@ normal = { family = "JetBrainsMono Nerd Font", style = "Medium" }
 bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
 italic = { family = "JetBrainsMono Nerd Font", style = "MediumItalic" }
 bold_italic = { family = "JetBrainsMono Nerd Font", style = "BoldItalic" }
-size = 10
+size = 12
 
 # Default colors
 [colors.primary]

@@ -103,28 +103,9 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ssh='ssh.exe'
-alias ssh-add='ssh-add.exe'
-alias op='op.exe'
-alias vim=nvim
+source ~/.aliases
 
-# https://github.com/eza-community/eza
-alias ld='eza -lD'
-alias ls='eza --color=always --group-directories-first'
-alias ll='eza -la --octal-permissions --group-directories-first'
-alias l='eza -bGF --header --git --color=always --group-directories-first'
-alias llm='eza -lbGd --header --git --sort=modified --color=always --group-directories-first' 
-alias la='eza --long --all --group --group-directories-first'
-alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --color=always --group-directories-first'
-
-alias lS='eza -1 --color=always --group-directories-first'
-alias lt='eza --tree --level=2 --color=always --group-directories-first'
-alias l.="eza -a | grep -E '^\.'"
-
-# Created by `pipx` on 2023-11-21 08:00:03
+# Export 
 export PATH="$PATH:/home/mircomarahrens/.local/bin"
 
 # homebrew
@@ -133,8 +114,6 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # rust
 . "$HOME/.cargo/env"
 
-# Add JBang to environment
-alias j!=jbang
 export PATH="$HOME/.jbang/bin:$HOME/.jbang/currentjdk/bin:$PATH"
 export JAVA_HOME=$HOME/.jbang/currentjdk
 
@@ -151,10 +130,6 @@ then
         export XDG_CONFIG_HOME="$HOME/.config/"
 fi
 
-#if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#    tmux attach -t default || tmux new -s default
-#fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -165,4 +140,5 @@ source <(kubectl completion zsh)
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/terraform terraform
 
+# set browser for WSL
 export BROWSER="cmd.exe /c start"

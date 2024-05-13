@@ -24,7 +24,7 @@ vim.opt.wrapmargin = 0
 vim.opt.wrap = true
 vim.opt.showbreak = '↪'
 
--- vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = '80'
 
 vim.opt.swapfile = false
 vim.opt.backup = false
