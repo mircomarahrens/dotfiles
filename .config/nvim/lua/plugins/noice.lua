@@ -1,7 +1,6 @@
-
--- https://github.com/folke/noice.nvim
--- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 return {
+    -- https://github.com/folke/noice.nvim
+    -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
@@ -40,7 +39,7 @@ return {
             views = {
                 cmdline_popup = {
                     position = {
-                        row = 5,
+                        row = 20,
                         col = "50%",
                     },
                     size = {

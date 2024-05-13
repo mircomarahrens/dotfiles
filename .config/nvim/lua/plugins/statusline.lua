@@ -7,7 +7,7 @@ return {
 
         require("lualine").setup({
             options = {
-                theme = "gruvbox",
+                theme = "everforest",
             },
             tabline = {
                 lualine_a = {'mode'},
