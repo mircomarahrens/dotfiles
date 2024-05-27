@@ -24,28 +24,8 @@ return {
             local actions = require("telescope.actions")
 
             telescope.setup({
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown {
-                            -- even more opts
-                        }
-
-                        -- pseudo code / specification for writing custom displays, like the one
-                        -- for "codeactions"
-                        -- specific_opts = {
-                        --   [kind] = {
-                        --     make_indexed = function(items) -> indexed_items, width,
-                        --     make_displayer = function(widths) -> displayer
-                        --     make_display = function(displayer) -> function(e)
-                        --     make_ordinal = function(e) -> string
-                        --   },
-                        --   -- for example to disable the custom builtin "codeactions" display
-                        --      do the following
-                        --   codeactions = false,
-                        -- }
-                    }
-                },
                 defaults = {
+                    file_ignore_patterns = { ".git/", "node_modules/", "vendor/" },
                     mappings = {
                         i = {
                             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -75,7 +55,7 @@ return {
             telescope.load_extension("undo")
             telescope.load_extension("advanced_git_search")
             telescope.load_extension("live_grep_args")
-            telescope.load_extension("noice")
+            --            telescope.load_extension("noice")
 
             -- file browser
             telescope.load_extension("file_browser")
@@ -83,7 +63,7 @@ return {
             local filebrowser = require("telescope").extensions.file_browser
 
             vim.keymap.set("n", "<leader>fb", filebrowser.file_browser, { noremap = true })
-            vim.api.nvim_set_keymap("n", "<leader><leader>", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
+            vim.keymap.set("n", "<leader><leader>", ":Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>", { noremap = true })
         end
     },
     {
@@ -92,33 +72,5 @@ return {
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     },
-    {
-        -- https://github.com/christoomey/vim-tmux-navigator
-        -- Seamless navigation between tmux panes and vim splits
-        "christoomey/vim-tmux-navigator",
-        cmd = {
-            "TmuxNavigateLeft",
-            "TmuxNavigateDown",
-            "TmuxNavigateUp",
-            "TmuxNavigateRight",
-            "TmuxNavigatePrevious",
-        },
-        keys = {
-            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-            { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-        },
-    },
-    {
-        -- https://github.com/ray-x/navigator.lua
-        -- Navigate between LSP symbols and files
-        'ray-x/navigator.lua',
-        requires = {
-            { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
-            { 'neovim/nvim-lspconfig' },
-        },
-    }
 }
 

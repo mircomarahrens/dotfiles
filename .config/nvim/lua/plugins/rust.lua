@@ -4,9 +4,9 @@ return {
         -- Rust support for Vim
         "rust-lang/rust.vim",
     },
---    {
---        'mrcjkb/rustaceanvim',
---        version = '^4', -- Recommended
---        ft = { 'rust' },
---    }
+    --    {
+    --        'mrcjkb/rustaceanvim',
+    --        version = '^4', -- Recommended
+    --        lazy = false
+    --    }
 }

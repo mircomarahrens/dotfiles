@@ -17,7 +17,6 @@ return {
     config = function()
         local noice = require("noice")
 
-        vim.keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss [N]oice" })
 
         noice.setup({
             lsp = {

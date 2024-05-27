@@ -27,6 +27,14 @@ return {
             lsp.setup()
         end
     },
+    -- https://github.com/williamboman/mason.nvim
+    -- Mason is a plugin for Neovim that provides a simple way to manage your projects.
+    {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup({})
+        end
+    },
     -- https://github.com/williamboman/mason-lspconfig.nvim
     -- mason-lspconfig bridges mason.nvim with the lspconfig plugin
     {
@@ -70,13 +78,5 @@ return {
                 end
             })
         end,
-    },
-    -- https://github.com/williamboman/mason.nvim
-    -- Mason is a plugin for Neovim that provides a simple way to manage your projects.
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup({})
-        end
     },
 }

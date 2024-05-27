@@ -142,3 +142,5 @@ complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/ter
 
 # set browser for WSL
 export BROWSER="cmd.exe /c start"
+
+complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.8.0/bin/terraform terraform
