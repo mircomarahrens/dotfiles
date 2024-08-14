@@ -163,3 +163,7 @@ complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/ter
 
 export PATH=~/.local/bin/:$PATH
 source /Users/mircomarahrens/.config/op/plugins.sh
+
+if [[ $(uname) == "Darwin" ]]; then
+    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+fi
