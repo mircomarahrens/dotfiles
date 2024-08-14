@@ -109,7 +109,13 @@ source ~/.aliases
 export PATH="$PATH:/home/mircomarahrens/.local/bin"
 
 # homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ $(uname) == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif command -v apt > /dev/null; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+else
+    echo "Unknown OS"
+fi
 
 # rust
 . "$HOME/.cargo/env"
@@ -122,6 +128,16 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/opt/node@20/bin"
 
 # golang
 export GOPATH=$HOME/go
+if [[ $(uname) == "Darwin" ]]; then
+    export PATH=$PATH:/opt/homebrew/bin/go
+    export GOBIN=/opt/homebrew/bin/go
+elif command -v apt > /dev/null; then
+    export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/go/bin
+    export GOBIN=/home/linuxbrew/.linuxbrew/opt/go/bin
+else
+    echo "Unknown OS"
+fi 
+
 
 # tmux
 # set XDG_CONFIG_HOME
@@ -140,7 +156,10 @@ source <(kubectl completion zsh)
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/terraform terraform
 
-# set browser for WSL
-export BROWSER="cmd.exe /c start"
+#if [[ $(grep -i Microsoft /proc/version) ]]; then
+#    # set browser for WSL
+#    export BROWSER="cmd.exe /c start"
+#fi
 
-complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.8.0/bin/terraform terraform
+export PATH=~/.local/bin/:$PATH
+source /Users/mircomarahrens/.config/op/plugins.sh

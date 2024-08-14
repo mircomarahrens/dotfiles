@@ -20,7 +20,9 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
 -- loading plugins via lazy
-require('lazy').setup('plugins')
+require('lazy').setup(
+    'plugins'
+)
 
 -- loading config
 require('keymaps')

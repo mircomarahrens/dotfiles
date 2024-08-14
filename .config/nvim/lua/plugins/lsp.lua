@@ -50,7 +50,6 @@ return {
                     "dockerls",
                     "pyright",
                     "pylsp",
-                    "gopls",
                     "rust_analyzer"
                 },
                 handlers = {
