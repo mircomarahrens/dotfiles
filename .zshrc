@@ -103,7 +103,27 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-source ~/.aliases
+if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    # alias for WSL
+    alias ssh='ssh.exe'
+    alias ssh-add='ssh-add.exe'
+    alias op='op.exe'
+fi
+alias vim=nvim
+
+# https://github.com/eza-community/eza
+alias ld='eza -lD'
+alias ls='eza --color=always --group-directories-first'
+alias ll='eza -la --octal-permissions --group-directories-first'
+alias l='eza -bGF --header --git --color=always --group-directories-first'
+alias llm='eza -lbGd --header --git --sort=modified --color=always --group-directories-first' 
+alias la='eza --long --all --group --group-directories-first'
+alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --color=always --group-directories-first'
+alias lS='eza -1 --color=always --group-directories-first'
+alias lt='eza --tree --level=2 --color=always --group-directories-first'
+alias l.="eza -a | grep -E '^\.'"
+alias cat=bat
+alias j!=jbang
 
 # Export 
 export PATH="$PATH:/home/mircomarahrens/.local/bin"
@@ -162,8 +182,17 @@ complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/ter
 #fi
 
 export PATH=~/.local/bin/:$PATH
-source /Users/mircomarahrens/.config/op/plugins.sh
+if [[ $(uname) == "Darwin" ]]; then
+    source /Users/mircomarahrens/.config/op/plugins.sh
+fi
 
+# setup 1password ssh-agent sock
 if [[ $(uname) == "Darwin" ]]; then
     export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+elif [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    export SSH_AUTH_SOCK=~/.1password/agent.sock
+else
+    echo "Unknown OS"
 fi
+
+
