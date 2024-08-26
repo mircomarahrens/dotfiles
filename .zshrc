@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -83,35 +83,51 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 else
-  export EDITOR='vim'
+    export EDITOR='vim'
 fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+if [[ $(uname) == "Darwin" ]]; then
+    # Package manager(s): homebrew
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    # Password manager: 1Password
+    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+    source /Users/mircomarahrens/.config/op/plugins.sh
+
+elif [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    # Package manager(s): homebrew
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    # Password manager: 1Password
+    export SSH_AUTH_SOCK=~/.1password/agent.sock
+
     # alias for WSL
     alias ssh='ssh.exe'
     alias ssh-add='ssh-add.exe'
     alias op='op.exe'
-fi
-alias vim=nvim
 
-# https://github.com/eza-community/eza
+    # Export 
+    export PATH="$PATH:/home/mircomarahrens/.local/bin"
+
+    # nodejs
+    export PATH="$PATH:/home/linuxbrew/.linuxbrew/opt/node@20/bin"
+
+else
+    echo "Unknown OS"
+fi
+
+# Personal aliases
+alias vim=nvim
 alias ld='eza -lD'
 alias ls='eza --color=always --group-directories-first'
 alias ll='eza -la --octal-permissions --group-directories-first'
@@ -122,49 +138,18 @@ alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --color=al
 alias lS='eza -1 --color=always --group-directories-first'
 alias lt='eza --tree --level=2 --color=always --group-directories-first'
 alias l.="eza -a | grep -E '^\.'"
-alias cat=bat
-alias j!=jbang
-
-# Export 
-export PATH="$PATH:/home/mircomarahrens/.local/bin"
-
-# homebrew
-if [[ $(uname) == "Darwin" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif command -v apt > /dev/null; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-else
-    echo "Unknown OS"
-fi
-
-# rust
-. "$HOME/.cargo/env"
-
-export PATH="$HOME/.jbang/bin:$HOME/.jbang/currentjdk/bin:$PATH"
-export JAVA_HOME=$HOME/.jbang/currentjdk
-
-# nodejs
-export PATH="$PATH:/home/linuxbrew/.linuxbrew/opt/node@20/bin"
-
-# golang
-export GOPATH=$HOME/go
-if [[ $(uname) == "Darwin" ]]; then
-    export PATH=$PATH:/opt/homebrew/bin/go
-    export GOBIN=/opt/homebrew/bin/go
-elif command -v apt > /dev/null; then
-    export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/go/bin
-    export GOBIN=/home/linuxbrew/.linuxbrew/opt/go/bin
-else
-    echo "Unknown OS"
-fi 
-
+alias cat='bat'
 
 # tmux
 # set XDG_CONFIG_HOME
 if [[ -z "$XDG_CONFIG_HOME" ]]
 then
-        export XDG_CONFIG_HOME="$HOME/.config/"
+    export XDG_CONFIG_HOME="$HOME/.config/"
 fi
+
+# rust
+. "$HOME/.cargo/env"
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -175,24 +160,4 @@ source <(kubectl completion zsh)
 # terraform
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/terraform terraform
-
-#if [[ $(grep -i Microsoft /proc/version) ]]; then
-#    # set browser for WSL
-#    export BROWSER="cmd.exe /c start"
-#fi
-
-export PATH=~/.local/bin/:$PATH
-if [[ $(uname) == "Darwin" ]]; then
-    source /Users/mircomarahrens/.config/op/plugins.sh
-fi
-
-# setup 1password ssh-agent sock
-if [[ $(uname) == "Darwin" ]]; then
-    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-elif [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-    export SSH_AUTH_SOCK=~/.1password/agent.sock
-else
-    echo "Unknown OS"
-fi
-
 
