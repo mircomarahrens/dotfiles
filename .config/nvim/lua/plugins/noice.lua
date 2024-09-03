@@ -1,7 +1,9 @@
 return {
     -- https://github.com/folke/noice.nvim
     -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
+    -- Comment: Makes some trouble on my setup, so I disabled it.
     "folke/noice.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
         -- add any options here
