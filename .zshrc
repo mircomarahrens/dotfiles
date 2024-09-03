@@ -161,3 +161,4 @@ source <(kubectl completion zsh)
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/linuxbrew/.linuxbrew/Cellar/terraform/1.5.7/bin/terraform terraform
 
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
